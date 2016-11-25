@@ -8,7 +8,6 @@ function main (sources){
 
   const plusOnes$ = sources.DOM.select('.plus').events('click')
   .map(e => 1)
-  .startWith(0)
   .map(v => ({key: 'plus-ones', val: v}));
 
   return Rx.Observable.merge(view$, plusOnes$);

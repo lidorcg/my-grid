@@ -1,5 +1,5 @@
 import Rx from 'rx';
-import { div, p } from '@cycle/dom';
+import { div, h1 } from '@cycle/dom';
 
 function main (sources){
   const plusBtnView$ = sources.Grid.subscribe('plus-btn-view');
@@ -13,7 +13,13 @@ function main (sources){
 
   const view$ = Rx.Observable.combineLatest(plusBtnView$, minusBtnView$, count$)
   .map(([plusBtn, minusBtn, count]) => {
-    return div([p([''+count]), plusBtn, minusBtn]);
+    return (
+      div('.container', [
+        h1('.count', [count.toString()]),
+        plusBtn,
+        minusBtn
+      ])
+    );
   })
   .map(v => ({key: 'DOM', val: v}));
 

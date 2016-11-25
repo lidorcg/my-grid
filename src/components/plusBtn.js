@@ -3,7 +3,7 @@ import { button } from '@cycle/dom';
 
 function main (sources){
   const view$ = Rx.Observable
-  .of(button('.plus',['+']))
+  .of(button('.plus btn',['+']))
   .map(dom => ({key: 'plus-btn-view', val: dom}));
 
   const plusOnes$ = sources.DOM.select('.plus').events('click')

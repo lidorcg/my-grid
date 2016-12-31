@@ -5,10 +5,7 @@ export function makeGridDriver() {
   const eventBus = new EventBus();
 
   function gridDriver(event$) {
-    event$.subscribe(event => {
-      eventBus.post(event)
-    });
-
+    eventBus.merge(event$);
     return eventBus;
   }
 
@@ -28,8 +25,12 @@ class EventBus {
       .map(event => event.val);
   }
 
-  post(event) {
-    this.subject.onNext(event);
+  register(key, event$) {
+    return event$.map(e => ({key: key, val: e}));
+  }
+
+  merge(event$) {
+    this.subject = this.subject.merge(event$);
   }
 
 }

@@ -6,15 +6,15 @@
     "cycle-scripts-es-webpack": "0.3.0"
   },
   "dependencies": {
-    "@cycle/dom": "^14.1.0",
-    "@cycle/rx-run": "^7.0.1",
-    "rx": "^4.1.0",
-    "xstream": "^8.0.0",
+    "@cycle/dom": "^14.2.0",
+    "@cycle/rx-run": "^7.1.0",
     "eslint": "^3.4.0",
     "eslint-config-cleanjs": "^3.0.1",
     "eslint-plugin-better": "^0.1.5",
     "eslint-plugin-fp": "^2.1.0",
-    "eslint-plugin-import": "^1.14.0"
+    "eslint-plugin-import": "^1.14.0",
+    "rx": "^4.1.0",
+    "xstream": "^9.0.0"
   },
   "scripts": {
     "start": "cycle-scripts start",

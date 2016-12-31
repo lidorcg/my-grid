@@ -1,29 +1,24 @@
 import Rx from 'rx';
 import { div, h1 } from '@cycle/dom';
 
-function main (sources){
-  const plusBtnView$ = sources.Grid.subscribe('plus-btn-view');
-  const minusBtnView$ = sources.Grid.subscribe('minus-btn-view');
-
-  const plusOnes$ = sources.Grid.subscribe('plus-ones');
-  const minusOnes$ = sources.Grid.subscribe('minus-ones');
-  const count$ = Rx.Observable.merge(plusOnes$, minusOnes$)
-  .scan((acc, i) => (acc +i),0)
-  .startWith(0);
-
-  const view$ = Rx.Observable.combineLatest(plusBtnView$, minusBtnView$, count$)
-  .map(([plusBtn, minusBtn, count]) => {
+function main ({Grid}){
+  // subscribe
+  const plusBtn$ = Grid.subscribe('plus-btn');
+  const minusBtn$ = Grid.subscribe('minus-btn');
+  const counter$ = Grid.subscribe('counter');
+  // combine all into one view
+  const layout$ = Rx.Observable.combineLatest(counter$, plusBtn$, minusBtn$)
+  .map(([counter, plusBtn, minusBtn]) => {
     return (
       div('.container', [
-        h1('.count', [count.toString()]),
+        h1('.count', [counter.toString()]),
         plusBtn,
         minusBtn
       ])
     );
-  })
-  .map(v => ({key: 'DOM', val: v}));
-
-  return view$;
+  });
+  // register the view as DOM
+  return Grid.register('DOM', layout$);
 }
 
 export default main;

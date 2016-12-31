@@ -1,16 +1,12 @@
 import Rx from 'rx';
 import { button } from '@cycle/dom';
 
-function main (sources){
-  const view$ = Rx.Observable
+function main ({Grid}){
+  const minusBtn$ = Rx.Observable
   .of(button('.minus btn',['-']))
-  .map(dom => ({key: 'minus-btn-view', val: dom}));
+  .delay(0); // NEEDED "so all the wires will be connected before any data start flowing"
 
-  const minusOnes$ = sources.DOM.select('.minus').events('click')
-  .map(e => -1)
-  .map(v => ({key: 'minus-ones', val: v}));
-
-  return Rx.Observable.merge(view$, minusOnes$);
+  return Grid.register('minus-btn', minusBtn$);
 }
 
 export default main;
